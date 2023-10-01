@@ -1,0 +1,85 @@
+.home_seaarch{
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #fff;
+}
+.home_seaarch form{
+    display: flex;
+}
+.home_seaarch input{
+    height: 35px;
+    width: 350px;
+    border-radius: 5px 0 0 5px;
+    border-left: none;
+    font-size: 22px;
+    outline: none;
+}
+.home_seaarch button{
+    height: 35px;
+    width: 50px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+.meal_item h3{
+    color: #fff;
+    justify-content: center;
+    display: flex;
+}
+.meal_item{
+    padding: 30px 0;
+}
+.meal_item h3{
+color: #fff;
+padding: 20px 0 10px 0;
+text-align: center;
+font-size: 16px;
+}
+.meal_item_content{
+display: flex;
+flex-wrap: wrap;
+justify-content: space-evenly;
+}
+/*? popular*/
+.popular{
+    color: #fff;
+    padding: 30px 0;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+.popular h3{
+    text-align: center;
+}
+.popular_ingredients{
+    display: flex;
+    justify-content: space-between;
+}
+/*? random meal */
+.random_meals{
+    padding: 0 0 30px 0;
+}
+.random_content h3{
+    text-align: center;
+    color: #fff;
+    margin: 30px 0 20px 0;
+}
+.random_images{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+/*? rondomingredints */
+.rondomingredints{
+    color: #fff;
+    padding: 30px 0;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.randomIng h3 {
+    text-align: center;
+    color: #fff;
+}
