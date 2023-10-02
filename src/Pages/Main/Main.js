@@ -5,6 +5,8 @@ import {getLatestMeal,getPopular,getRandomMeal, getRondomingredints,  getRandomD
 import { useDispatch } from 'react-redux'
 import InfoIngredients from "../../Components/info-ingredints"
 import PopularInfoIngredints from "../../Components/Popular-infoingredients"
+import AlfavitInfo from '../../Components/Alfavit-info'
+import SerchInfo from '../../Components/Search-info'
 
 
 const Main=()=> {
@@ -18,11 +20,15 @@ const Main=()=> {
     },[])
     return (
         <div>
+        {/* <Routes>
+             <Route path='/' element={<Home/>} />
+        </Routes> */}
          <Routes>
             <Route path='/' element={<Home/>}/>
             <Route path='/drinks/:idDrink/:title' element={<InfoIngredients/>}/>
             <Route path='/ingredient/:title' element={<PopularInfoIngredints/>}/>
-            
+            <Route path='/alfavit/:drinks' element={<AlfavitInfo/>}/>
+            <Route path="/search/:text" element={<SerchInfo />} />
          </Routes>
         </div>
     )

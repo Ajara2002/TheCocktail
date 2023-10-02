@@ -1,5 +1,7 @@
 import {createSlice,createAsyncThunk} from "@reduxjs/toolkit"
 import instance from "../../Http/Settings"
+import Alfavit from "../../Components/Alfavit/Alfavit"
+import AlfavitInfo from "../../Components/Alfavit-info/Alfavit-info"
 
 const initialState={
     latest:[],
@@ -9,7 +11,9 @@ const initialState={
     text: "",
     rondomMeal:[],
     rondomingredints:[],
-    randomDrinks:[]
+    randomDrinks:[],
+    alfavitMeal:[],
+    search: []
 }
 export const getLatestMeal=createAsyncThunk("latest/getLatestMeal",async(_,{rejectWithValue,dispatch})=>{
  
@@ -26,14 +30,12 @@ export const getLatestMeal=createAsyncThunk("latest/getLatestMeal",async(_,{reje
         )
         const combinedMeals=results.flat()
         dispatch(latestMeal(combinedMeals))
-        console.log("combinedMeals", combinedMeals)
     } catch (error) {
         rejectWithValue(error.message) 
     }
 })
 export const getInfoDrink=createAsyncThunk("infoDrink/getInfoDrink",async(elem,{rejectWithValue,dispatch})=>{
     const result=await instance.get(`lookup.php?i=${elem}`)
-    console.log ("resultinfoDrink>>>", result.data.drinks)
     dispatch(ingoIngredientMeal(result.data.drinks))
   })
   export const getPopular = createAsyncThunk("popular/getPoular", async (_, { rejectWithValue, dispatch }) => {
@@ -56,7 +58,6 @@ export const getRandomMeal = createAsyncThunk("rondomMeal/getRandomMeal", async 
             (response)=>response.data.drinks[0]
         )
         dispatch(getRandom(randomMealsData))
-        console.log ("responses>>>",  randomMealsData)
     } catch (error) {
        console.error("Error fetching random Drinks:", error)
     }
@@ -77,6 +78,18 @@ export const getRandomDrinks = createAsyncThunk("rondomDrinks/getRandomDrinks", 
     }
 });
 
+export const getAlfavitMeals = createAsyncThunk("alfavitMeal/getAlfavitMeals", async (elem, { rejectWithValue, dispatch }) => {
+    const res = await instance.get(`search.php?f=${elem}`)
+    dispatch(getAlfavitMeal(res.data.drinks))
+});
+
+export const getSearchMeals = createAsyncThunk(
+    "search/getSearchMeals",
+    async (elem, { rejectWithValue,dispatch }) => {
+      const res=await instance.get(`search.php?s=${elem}`)
+      dispatch(getSearchMeal(res.data.drinks))
+    }
+  );
 
 const melSlice=createSlice({
     name:"products",
@@ -106,6 +119,12 @@ const melSlice=createSlice({
         getRandomDrinks:(state, action) => {
             state.randomDrinks = action.payload
         },
+        getAlfavitMeal: (state, action) => {
+            state.alfavitInfo = action.payload
+        },
+        getSearchMeal:(state,action)=>{
+            state.search=action.payload
+          }
     }
 })
 export const {latestMeal,
@@ -115,7 +134,9 @@ export const {latestMeal,
     onDescription,
     getRandom,
     getRondomingredints,
-    randomDrinks
+    randomDrinks,
+    getAlfavitMeal,
+    getSearchMeal
      }=melSlice.actions
 
 export default melSlice.reducer;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styles from "./Home.module.css"
 import MealItem from '../../Components/Meal-item'
 import List from '../../Components/List/List'
@@ -6,30 +6,38 @@ import {useSelector,useDispatch} from "react-redux"
 import { useNavigate } from 'react-router-dom'
 import PopularIngredints from "../../Components/Popular-ingredints/Popular-ingredints"
 import { onDescription } from "../../Redux-toolkit/MealSlice/MealSlice"
+import Alfavit from '../../Components/Alfavit'
+import CartComponent from '../../Components/Cart-Component/Cart-Component'
 
 
 const Home = () => {
-    const navigete=useNavigate()
+    const navigate=useNavigate()
     const dispatch = useDispatch()
 const {latest,popular,rondomMeal, rondomingredints,  randomDrinks}=useSelector((state)=>state.products)
 
 const handleMealInfo=(id,title)=>{
     console.log("handleMealInfo>>>",id, title)
-    navigete(`/drinks/${id}/${title}`)
+    navigate(`/drinks/${id}/${title}`)
 }
 const hadlePopularMeal = (title,description) => {
-    navigete(`/ingredient/${title}`)
+    navigate(`/ingredient/${title}`)
     dispatch(onDescription(description))
 }
 const randomMeals = (id, title) => {
-    navigete(`/drinks/${id}/${title}`)
+    navigate(`/drinks/${id}/${title}`)
 }
 const  hadleRondomingredints  =( title)=>{
-    navigete(`/ingredint/${title}`)
+    navigate(`/ingredint/$${title}`)
 }
 const hadleRandomDrinks= (id, title) => {
-    navigete(`/drinks/${id}/${title}`)
+    navigate(`/drinks/${id}/${title}`)
 }
+const [input,setInput]=useState("")
+
+const handleSubmit=(e)=>{
+    e.preventDefault()
+    navigate(`/search/${input}`)
+  }
 
 
 let randomItems = [];
@@ -44,18 +52,26 @@ let randomItems = [];
     return (
         <section>
             <div className='container'>
-                <div className={styles.home_seaarch}>
-                    <form>
-                        <div>
-                            <input type="text" />
-                        </div>
-                        <div>
-                            <button type='sulmit'><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </div>
-                    </form>
-                </div>
+            <div className={styles.home_search}>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <input value={input} onChange={(e)=>setInput(e.target.value)} type="text" name="" id="" />
+            </div>
+            <div>
+              <button type="submit">
+                <i className="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+        <section>
+      <div className='container'>
+        <CartComponent />
+      </div>
+    </section>
+        
                 <div className={styles.meal_item}>
-                    <h3>Latest Meals</h3>
+                    <h3>Latest Drinks</h3>
                     <div className={styles.meal_item_content}>
                         <List
                          items={latest&&latest}
@@ -82,7 +98,7 @@ let randomItems = [];
                 </div>
                 <div className={styles.random_meals}>
                     <div className={styles.random_content}>
-                        <h3>Random Meals</h3>
+                        <h3>Random Drinks</h3>
                         <div className={styles.random_images}>
                             <List
                                 items={rondomMeal && rondomMeal}
@@ -94,19 +110,19 @@ let randomItems = [];
                     </div>
                 </div>
                 <div className={styles.randomIng}>
-                    <h3>Random Ingredients</h3>
                     <div className={styles.rondomingredints}>
+                    <h3>Random Ingredients</h3>
                         <List
-                            items={randomItems && randomItems}
+                            items={randomItems}
                             renderItem={(elem, i) => (
-                                <PopularIngredints  onClick={() => hadleRondomingredints (elem.idDrink, elem.strDrink)}  key={i} {...elem} />
+                                <PopularIngredints  onClick={() => hadleRondomingredints (elem.strIngredient)}  key={i} {...elem} />
                             )}
                         />
                     </div>
                 </div>
                 <div className={styles.random_meals}>
                     <div className={styles.random_content}>
-                        <h3>Random Meals</h3>
+                        <h3>Random Drinks</h3>
                         <div className={styles.random_images}>
                             <List
                                 items={randomDrinks && randomDrinks}
@@ -115,6 +131,12 @@ let randomItems = [];
                                 )}
                             />
                         </div>
+                    </div>
+                </div>
+                <div className={styles.alfavit}>
+                    <h3>Browse By Name</h3>
+                    <div className={styles.alfavit_content}>
+                <Alfavit/>
                     </div>
                 </div>
             </div>

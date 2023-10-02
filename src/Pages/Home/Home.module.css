@@ -1,14 +1,14 @@
-.home_seaarch{
+.home_search{
     padding: 20px 0;
     display: flex;
     justify-content: center;
     border-bottom: 1px solid #fff;
     border-top: 1px solid #fff;
 }
-.home_seaarch form{
+.home_search form{
     display: flex;
 }
-.home_seaarch input{
+.home_search input{
     height: 35px;
     width: 350px;
     border-radius: 5px 0 0 5px;
@@ -16,7 +16,7 @@
     font-size: 22px;
     outline: none;
 }
-.home_seaarch button{
+.home_search button{
     height: 35px;
     width: 50px;
     border-radius: 0 5px 5px 0;
@@ -71,10 +71,10 @@ justify-content: space-evenly;
 }
 /*? rondomingredints */
 .rondomingredints{
-    color: #fff;
-    padding: 30px 0;
     border-top: 1px solid #fff;
     border-bottom: 1px solid #fff;
+    color: #fff;
+    padding: 30px 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -82,4 +82,36 @@ justify-content: space-evenly;
 .randomIng h3 {
     text-align: center;
     color: #fff;
+    justify-content: center;
+    display: flex;
+}
+
+.country{
+    padding-bottom: 50px;
+}
+.country h3{
+    padding: 30px 0 20px 0;
+    text-align: center;
+    color: #fff;
+}
+.country_meals{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+.flags{
+    width: 64px;
+    height: 64px;
+}
+.flags img{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.alfavit h3{
+    text-align: center;
+    color: #fff;
+    padding: 20px 0;
 }
