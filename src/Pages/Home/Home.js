@@ -7,13 +7,11 @@ import { useNavigate } from 'react-router-dom'
 import PopularIngredints from "../../Components/Popular-ingredints/Popular-ingredints"
 import { onDescription } from "../../Redux-toolkit/MealSlice/MealSlice"
 import Alfavit from '../../Components/Alfavit'
-import CartComponent from '../../Components/Cart-Component/Cart-Component'
-
 
 const Home = () => {
     const navigate=useNavigate()
     const dispatch = useDispatch()
-const {latest,popular,rondomMeal, rondomingredints,  randomDrinks}=useSelector((state)=>state.products)
+const {latest,popular,rondomMeal, rondomingredints,  rondomDri}=useSelector((state)=>state.products)
 
 const handleMealInfo=(id,title)=>{
     console.log("handleMealInfo>>>",id, title)
@@ -26,10 +24,10 @@ const hadlePopularMeal = (title,description) => {
 const randomMeals = (id, title) => {
     navigate(`/drinks/${id}/${title}`)
 }
-const  hadleRondomingredints  =( title)=>{
-    navigate(`/ingredint/$${title}`)
+const hadleRondomingredints = (title) => {
+    navigate(`/ingredient/${title}`)
 }
-const hadleRandomDrinks= (id, title) => {
+const hadlerondomDri= (id, title) => {
     navigate(`/drinks/${id}/${title}`)
 }
 const [input,setInput]=useState("")
@@ -39,16 +37,16 @@ const handleSubmit=(e)=>{
     navigate(`/search/${input}`)
   }
 
-
-let randomItems = [];
-    if (rondomingredints && rondomingredints.length > 0) {
+  let randomItems = [];
+  if (rondomingredints && rondomingredints.length > 0) {
       for (let i = 0; i < 4; i++) {
-        let randomIndex = Math.floor(Math.random() * rondomingredints.length);
-        randomItems.push(rondomingredints[randomIndex]);
+          let randomIndex = Math.floor(Math.random() * rondomingredints.length);
+          randomItems.push(rondomingredints[randomIndex]);
       }
-    } else {
-        console.error("randomIngredient is undefined or empty");
-    }
+  } else {
+      console.error("randomIngredient is undefined or empty");
+  }
+
     return (
         <section>
             <div className='container'>
@@ -64,11 +62,6 @@ let randomItems = [];
             </div>
           </form>
         </div>
-        <section>
-      <div className='container'>
-        <CartComponent />
-      </div>
-    </section>
         
                 <div className={styles.meal_item}>
                     <h3>Latest Drinks</h3>
@@ -110,12 +103,13 @@ let randomItems = [];
                     </div>
                 </div>
                 <div className={styles.randomIng}>
+                <h3>Random Ingredients</h3>
                     <div className={styles.rondomingredints}>
-                    <h3>Random Ingredients</h3>
                         <List
-                            items={randomItems}
+                            items={randomItems &&randomItems}
                             renderItem={(elem, i) => (
-                                <PopularIngredints  onClick={() => hadleRondomingredints (elem.strIngredient)}  key={i} {...elem} />
+                                <PopularIngredints onClick={() => hadleRondomingredints(elem. strIngredient1, elem.idDrink)}
+                                        key={i} {...elem} />
                             )}
                         />
                     </div>
@@ -125,9 +119,9 @@ let randomItems = [];
                         <h3>Random Drinks</h3>
                         <div className={styles.random_images}>
                             <List
-                                items={randomDrinks && randomDrinks}
+                                items={rondomDri && rondomDri}
                                 renderItem={(elem, i) => (
-                                    <MealItem onClick={()=>hadleRandomDrinks(elem.idDrink, elem.strDrink)} key={i} {...elem} />
+                                    <MealItem onClick={()=>hadlerondomDri(elem.idDrink, elem.strDrink)} key={i} {...elem} />
                                 )}
                             />
                         </div>

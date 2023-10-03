@@ -11,7 +11,7 @@ const initialState={
     text: "",
     rondomMeal:[],
     rondomingredints:[],
-    randomDrinks:[],
+    rondomDri:[],
     alfavitMeal:[],
     search: []
 }
@@ -62,17 +62,17 @@ export const getRandomMeal = createAsyncThunk("rondomMeal/getRandomMeal", async 
        console.error("Error fetching random Drinks:", error)
     }
 });
-export const getRandomDrinks = createAsyncThunk("rondomDrinks/getRandomDrinks", async (_, { rejectWithValue, dispatch }) => {
+export const getRondomDri = createAsyncThunk("rondomDri/getRondomDri", async (_, { rejectWithValue, dispatch }) => {
     try {
         const rondom= [1,2,3,4,5,6,7,8]
         const responses = await Promise.all(
         rondom.map(()=>instance.get("random.php"))
         )
-        const randomDrinksData=responses.map(
+        const rondomDri=responses.map(
             (response)=>response.data.drinks[0]
         )
-        dispatch(getRandom(randomDrinksData))
-        console.log ("responses 1>>>",  randomDrinksData)
+        dispatch(getRandom(rondomDri))
+        console.log ("responses 1>>>",  rondomDri)
     } catch (error) {
        console.error("Error fetching random Drinks:", error)
     }
@@ -116,8 +116,8 @@ const melSlice=createSlice({
         getRondomingredints: (state, action) => {
             state.rondomingredints = action.payload
         },
-        getRandomDrinks:(state, action) => {
-            state.randomDrinks = action.payload
+        getRondomDri:(state, action) => {
+            state.rondomDri = action.payload
         },
         getAlfavitMeal: (state, action) => {
             state.alfavitInfo = action.payload
@@ -132,9 +132,9 @@ export const {latestMeal,
     popularMeal,
     popularInfoMeal,
     onDescription,
-    getRandom,
+    getRandom, 
     getRondomingredints,
-    randomDrinks,
+    rondomDri,
     getAlfavitMeal,
     getSearchMeal
      }=melSlice.actions
